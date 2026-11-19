@@ -2,7 +2,7 @@ name: Publish to Huawei ACR
 
 on:
   push:
-    branches: [dev-database]
+    branches: [main]
 
 jobs:
   push_to_acr:
