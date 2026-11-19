@@ -3,7 +3,6 @@ name: Build and Push to Huawei SWR
 on:
   push:
     branches: [main]
-    tags: ['v*']
   pull_request:
     branches: [main]
   workflow_dispatch:
@@ -51,11 +50,12 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          # 固定只打一个 main 标签，不生成 latest / sha / 分支 / 版本号
           tags: |
-            type=ref,event=branch
-            type=ref,event=tag
-            type=sha,format=short,prefix=sha-
-            type=raw,value=latest,enable={{is_default_branch}}
+            type=raw,value=main
+          labels: |
+            org.opencontainers.image.title=tencentyun-snake-up
+            org.opencontainers.image.description=腾讯云服务器秒杀工具（playwright + chromium）
 
       - name: 构建并推送
         uses: docker/build-push-action@v6
