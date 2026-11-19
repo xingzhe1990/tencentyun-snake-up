@@ -1,5 +1,6 @@
 config.json
 cookies.json
+data/
 *.local
 .env
 secrets/

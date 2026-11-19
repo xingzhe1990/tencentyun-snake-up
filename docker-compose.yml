@@ -1,0 +1,27 @@
+services:
+  # 扫码获取 Cookie：docker compose --profile login up login
+  login:
+    build: .
+    image: tencentyun-snake-up:py38
+    profiles: ["login"]
+    command: ["login"]
+    ports:
+      - "6080:6080"   # noVNC 网页，浏览器打开 http://localhost:6080/vnc.html
+    volumes:
+      - ./data:/app/data
+    environment:
+      TZ: Asia/Shanghai
+
+  # 秒杀主程序：docker compose up -d seckill
+  seckill:
+    build: .
+    image: tencentyun-snake-up:py38
+    container_name: snake-up
+    command: ["seckill"]
+    restart: "no"
+    volumes:
+      - ./data:/app/data
+      # 改完秒杀时间/地域不用重新构建镜像，直接重启容器即可
+      - ./snap_up_server.py:/app/snap_up_server.py:ro
+    environment:
+      TZ: Asia/Shanghai

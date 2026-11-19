@@ -1,0 +1,14 @@
+.git
+.gitignore
+.idea
+.vscode
+__pycache__
+*.pyc
+*.pyo
+.env
+data
+cookies.json
+image.png
+docker-compose.yml
+Dockerfile
+README.md
